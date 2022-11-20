@@ -118,7 +118,7 @@ const NewUrl = () => {
 
         {shortUrl.length > 0 && (
           <GroupBox label="Short Link">
-            Your short link is <Link to={shortUrl}>{shortUrl}</Link>, and it's
+            Your short link is <a href={shortUrl}>{shortUrl}</a>, and it's
             copied to your clipboard.
           </GroupBox>
         )}
