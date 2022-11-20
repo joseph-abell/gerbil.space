@@ -10,7 +10,6 @@ import {
   WindowHeader,
 } from "react95";
 import supabase from "../db";
-import { Link } from "react-router-dom";
 
 type Props = {
   target: {
