@@ -22,7 +22,7 @@ const hashids = new Hashids("gerbilspace");
 
 // From https://www.freecodecamp.org/news/check-if-a-javascript-string-is-a-url/
 const urlPattern =
-  /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
+  /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/; // eslint-disable-line no-useless-escape
 
 const NewUrl = () => {
   const [longUrl, setLongUrl] = useState("");
