@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link, useLocation, redirect } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Window, WindowContent, WindowHeader } from "react95";
 import supabase from "../db";
 
