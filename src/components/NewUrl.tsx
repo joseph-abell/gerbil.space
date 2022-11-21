@@ -73,7 +73,7 @@ const NewUrl = () => {
       .select()
       .single();
 
-    setShortUrl(`https://gerbils.space/${createdData.slug}`);
+    setShortUrl(`https://gerbil.space/${createdData.slug}`);
   };
 
   return (
@@ -117,8 +117,8 @@ const NewUrl = () => {
 
         {shortUrl.length > 0 && (
           <GroupBox label="Short Link">
-            Your short link is <a href={shortUrl}>{shortUrl}</a>, and it's
-            copied to your clipboard.
+            Your short link is <a href={shortUrl}>{shortUrl}</a>, and it's ready
+            to go.
           </GroupBox>
         )}
       </WindowContent>
