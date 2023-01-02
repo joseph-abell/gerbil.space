@@ -2,6 +2,7 @@ import { useState } from "react";
 import Hashids from "hashids";
 import {
   Button,
+  Checkbox,
   Frame,
   GroupBox,
   TextInput,
@@ -23,10 +24,11 @@ const hashids = new Hashids("gerbilspace");
 const urlPattern =
   /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/; // eslint-disable-line no-useless-escape
 
-const NewUrl = ({session}: any) => {
+const NewUrl = ({ session }: any) => {
   const [longUrl, setLongUrl] = useState("");
   const [preferredSlug, setPreferredSlug] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [shortlist, setShortlist] = useState(false);
   const [error, setError] = useState("");
 
   const onLongUrlChange = ({ target: { value } }: Props) => {
@@ -37,6 +39,8 @@ const NewUrl = ({session}: any) => {
   const onPreferredSlugChange = ({ target: { value } }: Props) => {
     setPreferredSlug(value);
   };
+
+  const onShortlistChange = () => setShortlist(!shortlist);
 
   const onCreateShortLinkSubmit = async (e: any) => {
     e.preventDefault();
@@ -69,7 +73,8 @@ const NewUrl = ({session}: any) => {
       .insert({
         slug,
         url: longUrl,
-        user_id: session?.user.id
+        user_id: session?.user.id,
+        shortlist
       })
       .select()
       .single();
@@ -108,6 +113,14 @@ const NewUrl = ({session}: any) => {
                   onChange={onPreferredSlugChange}
                 />
               </div>
+
+              <Checkbox
+                checked={!!shortlist}
+                onChange={onShortlistChange}
+                value="shortlist"
+                label="Shortlist"
+                name="shortlist"
+              />
 
               <div>
                 <Button type="submit">Create Short Link</Button>
