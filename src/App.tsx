@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { styleReset } from "react95";
@@ -10,6 +10,8 @@ import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 import Wrapper from "./components/Wrapper";
 import NewUrl from "./components/NewUrl";
 import Redirect from "./components/Redirect";
+import supabase from "./db";
+import RequireAuth from "./components/RequireAuth";
 
 const GlobalStyles = createGlobalStyle`
   ${styleReset}
@@ -30,20 +32,46 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const App = () => (
-  <>
-    <GlobalStyles />
-    <ThemeProvider theme={original}>
-      <Wrapper>
-        <Router>
-          <Routes>
-            <Route path="/" element={<NewUrl />} />
-            <Route path="*" element={<Redirect />} />
-          </Routes>
-        </Router>
-      </Wrapper>
-    </ThemeProvider>
-  </>
-);
+const App = () => {
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }: any) => {
+      session && setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session: any) => {
+      session && setSession(session);
+    });
+  }, []);
+
+  return (
+    <>
+      <GlobalStyles />
+      <ThemeProvider theme={original}>
+        <Wrapper>
+          <Router>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <RequireAuth session={session}>
+                    <NewUrl session={session} />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <Redirect />
+                }
+              />
+            </Routes>
+          </Router>
+        </Wrapper>
+      </ThemeProvider>
+    </>
+  );
+};
 
 export default App;

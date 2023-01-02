@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import Hashids from "hashids";
 import {
@@ -24,7 +23,7 @@ const hashids = new Hashids("gerbilspace");
 const urlPattern =
   /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/; // eslint-disable-line no-useless-escape
 
-const NewUrl = () => {
+const NewUrl = ({session}: any) => {
   const [longUrl, setLongUrl] = useState("");
   const [preferredSlug, setPreferredSlug] = useState("");
   const [shortUrl, setShortUrl] = useState("");
@@ -70,6 +69,7 @@ const NewUrl = () => {
       .insert({
         slug,
         url: longUrl,
+        user_id: session?.user.id
       })
       .select()
       .single();
