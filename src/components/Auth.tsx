@@ -30,7 +30,7 @@ const Auth = () => {
   return (
     <Window className="window">
       <div>
-        <WindowHeader>foodJournal.exe</WindowHeader>
+        <WindowHeader>gerbilSpace.exe</WindowHeader>
         <WindowContent>
           <p>Sign in via magic link with your email below</p>
           {loading ? (
