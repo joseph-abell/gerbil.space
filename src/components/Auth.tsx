@@ -28,7 +28,10 @@ const Auth = () => {
   };
 
   return (
-    <Window className="window">
+    <Window
+      className="window"
+      style={{ top: "20px", left: "5vw", width: "90vw" }}
+    >
       <div>
         <WindowHeader>gerbilSpace.exe</WindowHeader>
         <WindowContent>

@@ -28,6 +28,7 @@ const NewUrl = ({ session }: any) => {
   const [longUrl, setLongUrl] = useState("");
   const [preferredSlug, setPreferredSlug] = useState("");
   const [shortUrl, setShortUrl] = useState("");
+  const [title, setTitle] = useState("");
   const [shortlist, setShortlist] = useState(false);
   const [error, setError] = useState("");
 
@@ -38,6 +39,10 @@ const NewUrl = ({ session }: any) => {
 
   const onPreferredSlugChange = ({ target: { value } }: Props) => {
     setPreferredSlug(value);
+  };
+
+  const onTitleChange = ({ target: { value } }: Props) => {
+    setTitle(value);
   };
 
   const onShortlistChange = () => setShortlist(!shortlist);
@@ -74,7 +79,8 @@ const NewUrl = ({ session }: any) => {
         slug,
         url: longUrl,
         user_id: session?.user.id,
-        shortlist
+        shortlist,
+        title,
       })
       .select()
       .single();
@@ -121,6 +127,17 @@ const NewUrl = ({ session }: any) => {
                 label="Shortlist"
                 name="shortlist"
               />
+
+              {!!shortlist && (
+                <div>
+                  <label htmlFor="title">Title</label>
+                  <TextInput
+                    id="title"
+                    value={title}
+                    onChange={onTitleChange}
+                  />
+                </div>
+              )}
 
               <div>
                 <Button type="submit">Create Short Link</Button>

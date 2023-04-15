@@ -33,7 +33,7 @@ const Redirect = () => {
   }, [getUrl]);
 
   return (
-    <Window>
+    <Window style={{ top: "20px", left: "5vw", width: "90vw" }}>
       <WindowHeader>redirector.exe</WindowHeader>
       <WindowContent>
         {loading && <div>Loading...</div>}
